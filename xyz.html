@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async API User Data with Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: red;
+        }
+        button {
+            padding: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Display Users in Table</h1>
+
+<button onclick="fetchUserData()">Get User Data</button>
+
+<!-- Table to display user data -->
+<table id="user-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data rows will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+const url = "https://jsonplaceholder.typicode.com/users"; // API URL for user data
+
+// Async function to fetch user data and display it in a table
+async function fetchUserData() {
+    try {
+        // Fetch user data from the API
+        const res = await fetch(url);
+        const users = await res.json();
+
+        // Limit to first 50 users
+        const userData = users.slice(0, 50); // Limit to first 50 users
+
+        console.log(userData);
+
+        // Get the table body element
+        const tableBody = document.querySelector("#user-table tbody");
+
+        // Clear any existing rows
+        tableBody.innerHTML = '';
+
+        // Iterate over the fetched user data and create rows for the table
+        userData.forEach((user) => {
+            // Create a new row
+            const row = document.createElement("tr");
+
+            // Create table cells for ID, Name, Username, and Email
+            const idCell = document.createElement("td");
+            idCell.textContent = user.id;
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = user.name;
+
+            const usernameCell = document.createElement("td");
+            usernameCell.textContent = user.username;
+
+            const emailCell = document.createElement("td");
+            emailCell.textContent = user.email;
+
+            // Append the cells to the row
+            row.appendChild(idCell);
+            row.appendChild(nameCell);
+            row.appendChild(usernameCell);
+            row.appendChild(emailCell);
+
+            // Append the row to the table body
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+}
+</script>
+
+</body>
+</html>

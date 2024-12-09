@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 1%;
+            background-color: #95b7b8;
+        }
+        h1 {
+            color: rgb(175, 15, 15);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: 90vmin;
+            max-width: 500px;
+            border: 2px solid #270309; 
+        }
+        .chessboard div {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            box-sizing: border-box;
+        }
+        .chessboard .black {
+            background-color: #000000;
+        }
+        .chessboard .white {
+            background-color: #f0c8c3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chess is the gymnasium of the mind — Blaise Pascal</h1>
+    <div class="chessboard" id="chessboard"></div>
+    <script>
+        const chessboard = document.getElementById('chessboard');
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const square = document.createElement('div');
+                if ((row + col) % 2 === 0) {
+                    square.className = 'white';
+                } else {
+                    square.className = 'black';
+                }
+                chessboard.appendChild(square);
+            }
+        }
+    </script>
+</body>
+</html>
